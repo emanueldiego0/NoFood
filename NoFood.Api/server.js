@@ -1,32 +1,9 @@
-const express = require('express');
-const app = express();
+'use strict'
 
-/*
-C - CREATE - post
-R - READ - get
-U - UPDATE - put
-D - DELETE - delete
-*/
+const app = require('../NoFood.Api/bin/express');
+const variables = require('../NoFood.Api/bin/configuration/variables');
 
-app.get('/',(req, res) => {
-    res.status(200).send('Olá Mundo!');
+app.listen(variables.Api.port, () => {
+    console.info(`Servidor API NoFood iniciado na porta ${variables.Api.port}.`);
 });
 
-app.post('/',(req, res) => {
-    res.status(201).send('Criado');
-});
-
-app.put('/',(req, res) => {
-    res.status(202).send('Atualizado');
-});
-
-app.delete('',(req, res) => {
-    res.status(204).send('Registro excluido');
-});
-
-
-
-//subindo server na porta 3000
-app.listen(3000, () => {
-    console.log('Servidor Api NoFood iniciado na porta 3000.');
-});

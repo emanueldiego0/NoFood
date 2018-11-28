@@ -2,7 +2,7 @@
   "name": "nofood.api",
   "version": "1.0.0",
   "description": "Api feita em NodeJs para utilizacao do nosso app NoFood",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/emanueldiego0/NoFood#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "md5": "^2.2.1",
+    "mongoose": "^5.3.14"
   }
 }
