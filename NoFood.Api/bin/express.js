@@ -10,6 +10,7 @@ const usuarioRouter = require('../routes/usuario-router');
 //criando a API/Server Web do express
 const app = express();
 
+
 //configuracao de parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
