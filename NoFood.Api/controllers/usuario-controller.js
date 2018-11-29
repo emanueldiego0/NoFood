@@ -44,6 +44,7 @@ usuarioController.prototype.put = async(req, res) => {
             `Ja existe o email ${req.body.email} cadastrado em nossa base de dados.`);
     }
     
+    
     ctrlBase.put(_repo, _validationContract, req, res);
 };
 
