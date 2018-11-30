@@ -4,10 +4,35 @@ const validation = require('../bin/helpers/validation');
 const md5 = require('md5');
 const _repo = new repository();
 const ctrlBase = require('../bin/base/controller-base');
+const jwt = require('jsonwebtoken')
+const variables = require('../bin/configuration/variables');
 
 //criando classe. Poderia ser class
 function usuarioController(){
 
+}
+
+usuarioController.prototype.autenticar = async(req, res) => {
+    let _validationContract = new validation();
+
+    _validationContract.isRequired(req.body.email, 'informe seu email');
+    _validationContract.isEmail(req.body.email, 'formato de email invalido');
+    _validationContract.isRequired(req.body.senha, 'informe sua senha');
+
+    if(!_validationContract.isValid()){
+        res.status(400).send({message: 'nao foi possivel efetuar login', validation: _validationContract.errors()})
+        return;
+    }
+
+    let usuarioEncontrado = await _repo.authenticate(req.body.email, req.body.senha);
+    if(usuarioEncontrado){
+        res.status(200).send({
+            usuario: usuarioEncontrado,
+            token: jwt.sign(usuarioEncontrado, variables.Security.secretKey)
+        })
+    }else{
+        res.status(404).send({message:'usuario e senha informados sao invalidos'});
+    }
 }
 
 usuarioController.prototype.post = async(req, res) => { 
@@ -34,7 +59,7 @@ usuarioController.prototype.put = async(req, res) => {
     _validationContract.isRequired(req.body.nome, 'informe o nome');
     _validationContract.isRequired(req.body.email, 'informe seu email');
     _validationContract.isEmail(req.body.email, 'email invalido');
-    _validationContract.isRequired(req.body.id, 'informe o id do usuario');
+    //_validationContract.isRequired(req.body.id, 'informe o id do usuario');
 
     let usuarioIsEmailExiste = await _repo.IsEmailExistente(req.body.email);
     if(usuarioIsEmailExiste){

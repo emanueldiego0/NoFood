@@ -15,7 +15,7 @@ class repositoryBase{
 
     async update(id, data){
         await this._model.findByIdAndUpdate(id, {$set: data});
-        let resultado = CategoriaModel.findById(id);
+        let resultado = this._model.findById(id);
         return resultado;
     }
 
